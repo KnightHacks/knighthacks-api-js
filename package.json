@@ -1,0 +1,17 @@
+{
+  "name": "knighthacks-api",
+  "version": "1.0.0",
+  "description": "API to interact with the KnightHacks hackathon backend",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KnightHacks/knighthacks-api-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/KnightHacks/knighthacks-api-js/issues"
+  },
+  "homepage": "https://github.com/KnightHacks/knighthacks-api-js#readme"
+}
