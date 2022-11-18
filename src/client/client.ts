@@ -1,5 +1,5 @@
 import {JWT, Provider} from "../types/types";
-import {getAuthRedirectLink, login} from "../api/api"
+import {getAuthRedirectLink, login, deleteUser, denyApplicant} from "../api/api"
 import {LoginPayload} from "../types/api-payloads";
 
 export class Client {
@@ -22,6 +22,14 @@ export class Client {
 
     async getAuthRedirectLink(provider: Provider) {
         return getAuthRedirectLink(this.apiUrl, provider)
+    }
+
+    async deleteUser(deleteUserId: number) {
+        return deleteUser(this.apiUrl, deleteUserId)
+    }
+
+    async denyApplicant(provider: Provider, hackathonId: number, userId: number) {
+        return denyApplicant(this.apiUrl, hackathonId, userId)
     }
 }
 

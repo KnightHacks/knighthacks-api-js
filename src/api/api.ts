@@ -19,6 +19,21 @@ export async function getAuthRedirectLink(apiUrl: string, provider: Provider): P
     return await doRequest<string>(apiUrl, null, Query.LOGIN, variables)
 }
 
+export async function deleteUser(apiUrl: string, deleteUserId: number): Promise<string> {
+    let variables: { [key: string]: any } = {
+        "deleteUserId": deleteUserId,
+    }
+    return await doRequest<string>(apiUrl, null, Query.DELETE_USER, variables)
+}
+
+export async function denyApplicant(apiUrl: string, hackathonId: number, userId: number): Promise<string> {
+    let variables: { [key: string]: any } = {
+        hackathonId: hackathonId, 
+        userId: userId
+    }
+    return await doRequest<string>(apiUrl, null, Query.DENY_APPLICANT, variables)
+}
+
 async function doRequest<T>(apiUrl: string, jwt: JWT | null, query: Query, variables: { [key: string]: any } | null): Promise<T> {
     let requestBody: { query: Query, variables: { [key: string]: any } | null } = {query: query, variables: null}
     if (variables != null && variables.size > 0) {
