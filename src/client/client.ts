@@ -1,5 +1,5 @@
 import {JWT, Provider} from "../types/types";
-import {getAuthRedirectLink, login} from "../api/api"
+import {getAuthRedirectLink, login, getMe, getSponsor, getUsers, searchUser, refreshJWT} from "../api/api"
 import {LoginPayload} from "../types/api-payloads";
 
 export class Client {
@@ -22,6 +22,26 @@ export class Client {
 
     async getAuthRedirectLink(provider: Provider) {
         return getAuthRedirectLink(this.apiUrl, provider)
+    }
+
+    async getMe(provider: Provider) {
+        return getMe(this.apiUrl, provider)
+    }
+    
+    async refreshJWT(provider: Provider) {
+        return refreshJWT(this.apiUrl, provider)
+    }
+    
+    async searchUser(provider: Provider) {
+        return searchUser(this.apiUrl, provider)
+    }
+    
+    async getSponsor(provider: Provider) {
+        return getSponsor(this.apiUrl, provider)
+    }
+    
+    async getUsers(provider: Provider) {
+        return getUsers(this.apiUrl, provider)
     }
 }
 

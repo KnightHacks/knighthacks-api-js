@@ -19,6 +19,41 @@ export async function getAuthRedirectLink(apiUrl: string, provider: Provider): P
     return await doRequest<string>(apiUrl, null, Query.LOGIN, variables)
 }
 
+export async function getMe(apiUrl: string, provider: Provider): Promise<string> {
+    let variables: { [key: string]: any } = {
+        "provider": provider,
+    }
+    return await doRequest<string>(apiUrl, null, Query.LOGIN, variables)
+}
+
+export async function refreshJWT(apiUrl: string, provider: Provider): Promise<string> {
+    let variables: { [key: string]: any } = {
+        "provider": provider,
+    }
+    return await doRequest<string>(apiUrl, null, Query.LOGIN, variables)
+}
+
+export async function searchUser(apiUrl: string, provider: Provider): Promise<string> {
+    let variables: { [key: string]: any } = {
+        "provider": provider,
+    }
+    return await doRequest<string>(apiUrl, null, Query.LOGIN, variables)
+}
+
+export async function getSponsor(apiUrl: string, provider: Provider): Promise<string> {
+    let variables: { [key: string]: any } = {
+        "provider": provider,
+    }
+    return await doRequest<string>(apiUrl, null, Query.LOGIN, variables)
+}
+
+export async function getUsers(apiUrl: string, provider: Provider): Promise<string> {
+    let variables: { [key: string]: any } = {
+        "provider": provider,
+    }
+    return await doRequest<string>(apiUrl, null, Query.LOGIN, variables)
+}
+
 async function doRequest<T>(apiUrl: string, jwt: JWT | null, query: Query, variables: { [key: string]: any } | null): Promise<T> {
     let requestBody: { query: Query, variables: { [key: string]: any } | null } = {query: query, variables: null}
     if (variables != null && variables.size > 0) {
