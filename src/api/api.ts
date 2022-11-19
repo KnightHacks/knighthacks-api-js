@@ -28,51 +28,51 @@ export async function deleteUser(apiUrl: string, deleteUserId: number): Promise<
 
 export async function denyApplicant(apiUrl: string, hackathonId: number, userId: number): Promise<string> {
     let variables: { [key: string]: any } = {
-        hackathonId: hackathonId, 
-        userId: userId
+        "hackathonId": hackathonId, 
+        "userId": userId
     }
     return await doRequest<string>(apiUrl, null, Query.DENY_APPLICANT, variables)
 }
 
 export async function register(apiUrl: string, encryptedOAuthAccessToken: string, provider:Provider, input:NewUser) {
     let variables: { [key: string]: any } = {
-        encryptedOAuthAccessToken: encryptedOAuthAccessToken,
-        updateEventId: provider, 
-        input: input
+        "encryptedOAuthAccessToken": encryptedOAuthAccessToken,
+        "provider": provider, 
+        "input": input
     }
     return await doRequest<string>(apiUrl, null, Query.REGISTER, variables)
 }
 
 export async function updateEvent(apiUrl: string, updateEventId:number, input:UpdatedEvent) {
     let variables: { [key: string]: any } = {
-        updateEventId: updateEventId, 
-        input: input
+        "updateEventId": updateEventId, 
+        "input": input
     }
     return await doRequest<string>(apiUrl, null, Query.UPDATE_EVENT, variables)
 }
 
 export async function updateHackathon(apiUrl: string, updateHackathonId:number, input:HackathonUpdateInput, userId: number, attendingUserId2:number) {
     let variables: { [key: string]: any } = {
-        updateHackathonId: updateHackathonId, 
-        input: input,
-        userId:userId,
-        attendingUserId2:attendingUserId2
+        "updateHackathonId": updateHackathonId, 
+        "input": input,
+        "userId":userId,
+        "attendingUserId2":attendingUserId2
     }
     return await doRequest<string>(apiUrl, null, Query.UPDATE_HACKATHON, variables)
 }
 
 export async function updateSponsor(apiUrl: string, updateSponsorId:number, input:UpdatedSponsor) {
     let variables: { [key: string]: any } = {
-        updateSponsorId: updateSponsorId, 
-        input: input
+        "updateSponsorId": updateSponsorId, 
+        "input": input
     }
     return await doRequest<string>(apiUrl, null, Query.UPDATE_SPONSER, variables)
 }
 
 export async function updateUser(apiUrl: string, updateUserId:number, input:UpdatedUser) {
     let variables: { [key: string]: any } = {
-        updateUserId: updateUserId, 
-        input: input
+        "updateUserId": updateUserId, 
+        "input": input
     }
     return await doRequest<string>(apiUrl, null, Query.UPDATE_USER, variables)
 }
