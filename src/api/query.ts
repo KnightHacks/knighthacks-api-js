@@ -25,4 +25,24 @@ export const enum Query {
         mutation DeleteUser($hackathonId: ID!, $userId: ID!) {
             denyApplicant(hackathonId: $hackathonId, userId: $userId)
         }`),
+
+    REGISTER = (`
+    
+    `),
+
+    UPDATE_EVENT = (`
+    
+    `),
+
+    UPDATE_HACKATHON = (`
+    
+    `),
+
+    UPDATE_SPONSER = (`
+    
+    `),
+
+    UPDATE_USER = (`
+    
+    `),
 }
