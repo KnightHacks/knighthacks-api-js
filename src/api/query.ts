@@ -27,14 +27,28 @@ export const enum Query {
         }`),
 
     REGISTER = (`
-        mutation Register($updateEventId: ID!, $input: UpdatedEvent!) {
-            updateEvent(id: $updateEventId, input: $input) {
-            description
-            end_date
-            location
-            name
-            start_date
-            id
+        mutation Register($encryptedOAuthAccessToken: String!, $input: NewUser!, $provider: Provider!) {
+            register(encryptedOAuthAccessToken: $encryptedOAuthAccessToken, input: $input, provider: $provider) {
+            accessToken
+            refreshToken
+            user {
+                age
+                email
+                firstName
+                fullName
+                id
+                lastName
+                phoneNumber
+                oAuth {
+                provider
+                uid
+                }
+                pronouns {
+                objective
+                subjective
+                }
+                role
+            }
             }
         }
     `),
