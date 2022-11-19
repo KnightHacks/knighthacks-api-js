@@ -22,27 +22,163 @@ export const enum Query {
         }`),
 
     DENY_APPLICANT = (`
-        mutation DeleteUser($hackathonId: ID!, $userId: ID!) {
+        mutation DenyApplicant($hackathonId: ID!, $userId: ID!) {
             denyApplicant(hackathonId: $hackathonId, userId: $userId)
         }`),
 
     REGISTER = (`
-    
+        mutation Register($updateEventId: ID!, $input: UpdatedEvent!) {
+            updateEvent(id: $updateEventId, input: $input) {
+            description
+            end_date
+            location
+            name
+            start_date
+            id
+            }
+        }
     `),
 
     UPDATE_EVENT = (`
-    
+        mutation UpdateEvent($updateEventId: ID!, $input: UpdatedEvent!) {
+            updateEvent(id: $updateEventId, input: $input) {
+            description
+            end_date
+            id
+            location
+            name
+            start_date
+            }
+        }
     `),
 
     UPDATE_HACKATHON = (`
-    
+        mutation UpdateHackathon($updateHackathonId: ID!, $input: HackathonUpdateInput!, $userId: ID!, $attendingUserId2: ID!) {
+            updateHackathon(id: $updateHackathonId, input: $input) {
+            endDate
+            id
+            pending(userId: $userId)
+            sponsors {
+                pageInfo {
+                endCursor
+                startCursor
+                }
+                totalCount
+                sponsors {
+                tier
+                website
+                since
+                name
+                logo
+                id
+                description
+                }
+            }
+            startDate
+            term {
+                semester
+                year
+            }
+            status
+            events {
+                events {
+                description
+                end_date
+                id
+                location
+                name
+                start_date
+                }
+            }
+            attending(userId: $attendingUserId2)
+            attendees {
+                pageInfo {
+                endCursor
+                startCursor
+                }
+                totalCount
+                users {
+                age
+                email
+                firstName
+                fullName
+                id
+                lastName
+                oAuth {
+                    provider
+                    uid
+                }
+                phoneNumber
+                pronouns {
+                    objective
+                    subjective
+                }
+                role
+                }
+            }
+            applicants {
+                pageInfo {
+                endCursor
+                startCursor
+                }
+                totalCount
+                users {
+                age
+                email
+                firstName
+                fullName
+                id
+                lastName
+                oAuth {
+                    provider
+                    uid
+                }
+                phoneNumber
+                pronouns {
+                    objective
+                    subjective
+                }
+                role
+                }
+            }
+            }
+        }
     `),
 
     UPDATE_SPONSER = (`
-    
+        mutation UpdateSponsor($updateSponsorId: ID!, $input: UpdatedSponsor!) {
+            updateSponsor(id: $updateSponsorId, input: $input) {
+            description
+            id
+            logo
+            name
+            since
+            tier
+            website
+            }
+        }
     `),
 
     UPDATE_USER = (`
-    
+        mutation UpdateUser($updateUserId: ID!, $input: UpdatedUser!) {
+            updateUser(id: $updateUserId, input: $input) {
+            age
+            email
+            firstName
+            fullName
+            id
+            lastName
+            oAuth {
+                provider
+                uid
+            }
+            phoneNumber
+            pronouns {
+                subjective
+                objective
+            }
+            role
+            }
+        }
     `),
 }
