@@ -1,4 +1,4 @@
-import {JWT, Provider} from "../types/types";
+import {JWT, Provider, User, SponsorsConnection, SponsorFilter, UsersConnection} from "../types/types";
 import {Query} from "./query";
 import {LoginPayload} from "../types/api-payloads";
 import fetch from "node-fetch";
@@ -14,44 +14,46 @@ export async function login(apiUrl: string, code: string, provider: Provider, oA
 
 export async function getAuthRedirectLink(apiUrl: string, provider: Provider): Promise<string> {
     let variables: { [key: string]: any } = {
-        "provider": provider,
+        "provider": provider
     }
     return await doRequest<string>(apiUrl, null, Query.LOGIN, variables)
 }
 
-export async function getMe(apiUrl: string, provider: Provider): Promise<string> {
-    let variables: { [key: string]: any } = {
-        "provider": provider,
-    }
-    return await doRequest<string>(apiUrl, null, Query.LOGIN, variables)
+export async function getMe(apiUrl: string): Promise<User> {
+    let variables: { [key: string]: any } = {}
+
+    return await doRequest<User>(apiUrl, null, Query.GET_ME, variables)
 }
 
-export async function refreshJWT(apiUrl: string, provider: Provider): Promise<string> {
+export async function refreshJWT(apiUrl: string, refreshToken: string): Promise<string> {
     let variables: { [key: string]: any } = {
-        "provider": provider,
+        "refreshToken": refreshToken
     }
-    return await doRequest<string>(apiUrl, null, Query.LOGIN, variables)
+    return await doRequest<string>(apiUrl, null, Query.REFRESH_JWT, variables)
 }
 
-export async function searchUser(apiUrl: string, provider: Provider): Promise<string> {
+export async function searchUser(apiUrl: string, name: string): Promise<[User]> {
     let variables: { [key: string]: any } = {
-        "provider": provider,
+        "name": name
     }
-    return await doRequest<string>(apiUrl, null, Query.LOGIN, variables)
+    return await doRequest<[User]>(apiUrl, null, Query.SEARCH_USER, variables)
 }
 
-export async function getSponsor(apiUrl: string, provider: Provider): Promise<string> {
+export async function getSponsor(apiUrl: string, first: number, after: string, filter: SponsorFilter): Promise<SponsorsConnection> {
     let variables: { [key: string]: any } = {
-        "provider": provider,
+        "first": first,
+        "after": after,
+        "filter": filter
     }
-    return await doRequest<string>(apiUrl, null, Query.LOGIN, variables)
+    return await doRequest<SponsorsConnection>(apiUrl, null, Query.GET_SPONSOR, variables)
 }
 
-export async function getUsers(apiUrl: string, provider: Provider): Promise<string> {
+export async function getUsers(apiUrl: string, first: number, after: string): Promise<UsersConnection> {
     let variables: { [key: string]: any } = {
-        "provider": provider,
+        "first": first,
+        "after": after
     }
-    return await doRequest<string>(apiUrl, null, Query.LOGIN, variables)
+    return await doRequest<UsersConnection>(apiUrl, null, Query.GET_USERS, variables)
 }
 
 async function doRequest<T>(apiUrl: string, jwt: JWT | null, query: Query, variables: { [key: string]: any } | null): Promise<T> {

@@ -1,4 +1,4 @@
-import {JWT, Provider} from "../types/types";
+import {JWT, Provider, SponsorFilter} from "../types/types";
 import {getAuthRedirectLink, login, getMe, getSponsor, getUsers, searchUser, refreshJWT} from "../api/api"
 import {LoginPayload} from "../types/api-payloads";
 
@@ -24,24 +24,24 @@ export class Client {
         return getAuthRedirectLink(this.apiUrl, provider)
     }
 
-    async getMe(provider: Provider) {
-        return getMe(this.apiUrl, provider)
+    async getMe() {
+        return getMe(this.apiUrl)
     }
     
-    async refreshJWT(provider: Provider) {
-        return refreshJWT(this.apiUrl, provider)
+    async refreshJWT(refreshToken: string) {
+        return refreshJWT(this.apiUrl, refreshToken)
     }
     
-    async searchUser(provider: Provider) {
-        return searchUser(this.apiUrl, provider)
+    async searchUser(name: string) {
+        return searchUser(this.apiUrl, name)
     }
     
-    async getSponsor(provider: Provider) {
-        return getSponsor(this.apiUrl, provider)
+    async getSponsor(first: number, after: string, filter: SponsorFilter) {
+        return getSponsor(this.apiUrl, first, after, filter)
     }
     
-    async getUsers(provider: Provider) {
-        return getUsers(this.apiUrl, provider)
+    async getUsers(first: number, after: string) {
+        return getUsers(this.apiUrl, first, after)
     }
 }
 
