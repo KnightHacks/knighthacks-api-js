@@ -1,27 +1,74 @@
-import {JWT, Provider} from "../types/types";
-import {getAuthRedirectLink, login} from "../api/api"
-import {LoginPayload} from "../types/api-payloads";
+import { JWT, Provider, Event, Hackathon, Sponsor } from "../types/types";
+import {
+  getAuthRedirectLink,
+  login,
+  acceptApplicant,
+  applyToHackathon,
+  createEvent,
+  createHackathon,
+  createSponsor,
+  deleteEvent,
+  deleteHackathon,
+  deleteSponsor,
+} from "../api/api";
+import { LoginPayload } from "../types/api-payloads";
 
 export class Client {
-    private apiUrl: string
-    private jwt: JWT | null
+  private apiUrl: string;
+  private jwt: JWT | null;
 
-    constructor(apiUrl: string) {
-        this.apiUrl = apiUrl
-        this.jwt = null
+  constructor(apiUrl: string) {
+    this.apiUrl = apiUrl;
+    this.jwt = null;
+  }
+
+  async login(
+    code: string,
+    provider: Provider,
+    oAuthState: string
+  ): Promise<LoginPayload> {
+    const loginPayload = await login(this.apiUrl, code, provider, oAuthState);
+
+    if (loginPayload.accountExists) {
+      this.jwt = new JWT(loginPayload.accessToken!, loginPayload.refreshToken!);
     }
+    return loginPayload;
+  }
 
-    async login(code: string, provider: Provider, oAuthState: string): Promise<LoginPayload> {
-        const loginPayload = await login(this.apiUrl, code, provider, oAuthState)
+  async getAuthRedirectLink(provider: Provider) {
+    return getAuthRedirectLink(this.apiUrl, provider);
+  }
 
-        if (loginPayload.accountExists) {
-            this.jwt = new JWT(loginPayload.accessToken!, loginPayload.refreshToken!)
-        }
-        return loginPayload
-    }
+  async acceptApplicant(hackathonId: String, userId: String) {
+    return acceptApplicant(this.apiUrl, hackathonId, userId);
+  }
 
-    async getAuthRedirectLink(provider: Provider) {
-        return getAuthRedirectLink(this.apiUrl, provider)
-    }
+  async applyToHackathon(hackathonId: String) {
+    return applyToHackathon(this.apiUrl, hackathonId);
+  }
+
+  //   async createEvent(input: Event) {
+  //     return createEvent(this.apiUrl, input);
+  //   }
+
+  async createHackathon(input: Hackathon) {
+    return createHackathon(this.apiUrl, input);
+  }
+
+  async createSponsor(input: Sponsor) {
+    return createSponsor(this.apiUrl, input);
+  }
+
+  async deleteEvent(id: string) {
+    return deleteEvent(this.apiUrl, id);
+  }
+
+  async deleteHackathon(id: string) {
+    return deleteHackathon(this.apiUrl, id);
+  }
+
+  async deleteSponsor(id: string) {
+    return deleteSponsor(this.apiUrl, id);
+  }
 }
 
