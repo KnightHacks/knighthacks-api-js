@@ -44,3 +44,77 @@ export enum Provider {
     GITHUB = "GITHUB",
     GMAIL = "GMAIL"
 }
+
+export type Event = {
+    description: string,
+    end_date: Date,
+    //hackathon: Hackathon!,
+    id: number,
+    location: string,
+    name: string,
+    start_date: Date,
+}
+
+export type UpdatedEvent = {
+    description: string,
+    end_date: Date,
+    location: string,
+    name: string,
+    start_date: Date,
+}
+
+export type NewUser = {
+    age: number,
+    email: string,
+    firstName: string,
+    lastName: string,
+    phoneNumber: string,
+    pronouns: PronounsInput
+  }
+
+export type PronounsInput = {
+    oobjective: string,
+    subjective: string
+}
+
+export enum Semester {
+    FALL = 'FALL',
+    SPRING = 'SPRING',
+    SUMMER = 'SUMMER',
+}
+
+export enum SubscriptionTier {
+    BRONZE = 'BRONZE',
+    GOLD = 'GOLD',
+    PLATINUM = 'PLATINUM',
+    SILVER = 'SILVER'
+}
+
+export type HackathonUpdateInput = {
+    addedEvents: [number]
+    addedParticipants: [number]
+    addedSponsors: [number]
+    removedEvents: [number]
+    removedParticipants: [number]
+    removedSponsors: [number]
+    semester: Semester
+    year: number
+  }
+
+export type UpdatedSponsor = {
+    description: string,
+    logo: string,
+    name: string,
+    since: string,
+    tier: SubscriptionTier,
+    website: string
+  }
+
+export type UpdatedUser = {
+    age: number,
+    email: string,
+    firstName: string,
+    lastName: string,
+    phoneNumber: string,
+    pronouns: PronounsInput
+  }
