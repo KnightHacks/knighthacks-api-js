@@ -57,7 +57,7 @@ export type Hackathon = {
 }
 
 
-export type HackathonApplicationConnection = {
+export type HackathonApplicationConnection implements Connection = {
     applications: [HackathonApplication]
     pageInfo: PageInfo
     totalCount: number
@@ -94,7 +94,7 @@ export type Time = {
     Time: Date
 }
 
-export type EventsConnection = {
+export type EventsConnection implements Connection = {
     events: [Event]
     pageInfo: PageInfo
     totalCount: number
@@ -110,7 +110,7 @@ export type Event = {
     start_date: Time
 }
 
-export type SponsorsConnection = {
+export type SponsorsConnection implements Connection = {
     pageInfo: PageInfo
     sponsors: [Sponsor]
     totalCount: number
