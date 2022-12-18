@@ -44,3 +44,112 @@ export enum Provider {
     GITHUB = "GITHUB",
     GMAIL = "GMAIL"
 }
+
+export type Hackathon = {
+    applications: HackathonApplicationConnection
+    endDate: Time
+    events: EventsConnection
+    id: number
+    sponsors: SponsorsConnection
+    startDate: Time
+    status: HackathonStatus
+    term: Term
+}
+
+
+export type HackathonApplicationConnection = {
+    applications: [HackathonApplication]
+    pageInfo: PageInfo
+    totalCount: number
+}
+
+export interface Connection {
+    pageInfo: PageInfo
+    totalCount: number
+}
+
+export type HackathonApplication = {
+    hackathon: Hackathon
+    id: number
+    resumeUrl: string
+    shareInfoWithSponsors: boolean
+    status: ApplicationStatus
+    user: User
+    whatDoYouWantToLearn: [String]
+    whyAttend: [String]
+}
+
+export enum ApplicationStatus {
+    ACCEPTED = "ACCEPTED",
+    REJECTED = "REJECTED",
+    WAITING = "WAITING"
+}
+
+export type PageInfo = {
+    endCursor: string
+    startCursor: string
+}
+
+export type Time = {
+    Time: Date
+}
+
+export type EventsConnection = {
+    events: [Event]
+    pageInfo: PageInfo
+    totalCount: number
+}
+
+export type Event = {
+    description: string
+    end_date: Time
+    hackathon: Hackathon
+    id: number
+    location: string
+    name: string
+    start_date: Time
+}
+
+export type SponsorsConnection = {
+    pageInfo: PageInfo
+    sponsors: [Sponsor]
+    totalCount: number
+}
+
+export type Sponsor = {
+    description: string
+    hackathons: [Hackathon]
+    id: number
+    logo: string
+    name: string
+    since: Time
+    tier: SubscriptionTier
+    website: string
+}
+
+export enum SubscriptionTier {
+    BRONZE = "BRONZE",
+    GOLD = "GOLD",
+    PLATINUM = "PLATINUM",
+    SILVER = "SILVER"
+}
+
+export enum HackathonStatus {
+    FUTURE = "FUTURE",
+    PAST = "PAST",
+    PRESENT = "PRESENT"
+}
+
+export type Term = {
+    semester: Semester
+    year: number
+}
+
+export enum Semester {
+    FALL = "FALL",
+    SPRING = "SPRING",
+    SUMMER = "SUMMER"
+}
+
+
+

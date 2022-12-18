@@ -1,6 +1,6 @@
-import {JWT, Provider} from "../types/types";
-import {Query} from "./query";
-import {LoginPayload} from "../types/api-payloads";
+import { Hackathon, JWT, Provider } from "../types/types";
+import { Query } from "./query";
+import { LoginPayload } from "../types/api-payloads";
 import fetch from "node-fetch";
 
 export async function login(apiUrl: string, code: string, provider: Provider, oAuthState: string): Promise<LoginPayload> {
@@ -19,13 +19,26 @@ export async function getAuthRedirectLink(apiUrl: string, provider: Provider): P
     return await doRequest<string>(apiUrl, null, Query.LOGIN, variables)
 }
 
+export async function getCurrentHackathon(apiUrl: string, status: string, after: string, first: string, eventsAfter2: string, eventsFirst2: string, sponsorsAfter2: string, sponsorsFirst2: string): Promise<Hackathon> {
+    let variables: { [key: string]: any } = {
+        "status": status,
+        "after": after,
+        "first": first,
+        "eventsAfter2": eventsAfter2,
+        "eventsFirst2": eventsFirst2,
+        "sponsorsAfter2": sponsorsAfter2,
+        "sponsorsFirst2": sponsorsFirst2,
+    }
+    return await doRequest<Hackathon>(apiUrl, null, Query.LOGIN, variables)
+}
+
 async function doRequest<T>(apiUrl: string, jwt: JWT | null, query: Query, variables: { [key: string]: any } | null): Promise<T> {
-    let requestBody: { query: Query, variables: { [key: string]: any } | null } = {query: query, variables: null}
+    let requestBody: { query: Query, variables: { [key: string]: any } | null } = { query: query, variables: null }
     if (variables != null && variables.size > 0) {
         requestBody["variables"] = variables
     }
 
-    let requestHeaders: { [key: string]: string } = {"Content-Type": "application/json"}
+    let requestHeaders: { [key: string]: string } = { "Content-Type": "application/json" }
     if (jwt != null) {
         requestHeaders["authorization"] = jwt.accessToken
     }
