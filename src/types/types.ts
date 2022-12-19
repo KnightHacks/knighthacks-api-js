@@ -57,13 +57,8 @@ export type Hackathon = {
 }
 
 
-export type HackathonApplicationConnection implements Connection = {
+export type HackathonApplicationConnection = {
     applications: [HackathonApplication]
-    pageInfo: PageInfo
-    totalCount: number
-}
-
-export interface Connection {
     pageInfo: PageInfo
     totalCount: number
 }
@@ -94,7 +89,7 @@ export type Time = {
     Time: Date
 }
 
-export type EventsConnection implements Connection = {
+export type EventsConnection = {
     events: [Event]
     pageInfo: PageInfo
     totalCount: number
@@ -110,7 +105,7 @@ export type Event = {
     start_date: Time
 }
 
-export type SponsorsConnection implements Connection = {
+export type SponsorsConnection = {
     pageInfo: PageInfo
     sponsors: [Sponsor]
     totalCount: number
@@ -151,5 +146,8 @@ export enum Semester {
     SUMMER = "SUMMER"
 }
 
-
+export type HackathonFilter = {
+    semester: Semester
+    year: number
+}
 

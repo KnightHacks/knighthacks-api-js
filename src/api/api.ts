@@ -1,4 +1,4 @@
-import { EventsConnection, Hackathon, HackathonApplication, JWT, Provider } from "../types/types";
+import { ApplicationStatus, EventsConnection, Hackathon, HackathonApplication, HackathonFilter, JWT, Provider, User } from "../types/types";
 import { Query } from "./query";
 import { LoginPayload } from "../types/api-payloads";
 import fetch from "node-fetch";
@@ -12,7 +12,7 @@ export async function login(apiUrl: string, code: string, provider: Provider, oA
     return await doRequest<LoginPayload>(apiUrl, null, Query.LOGIN, variables)
 }
 
-export async function getCurrentHackathon(apiUrl: string, status: string, after: string, first: string, eventsAfter2: string, eventsFirst2: string, sponsorsAfter2: string, sponsorsFirst2: string): Promise<Hackathon> {
+export async function getCurrentHackathon(apiUrl: string, status: ApplicationStatus, after: number, first: number, eventsAfter2: number, eventsFirst2: number, sponsorsAfter2: number, sponsorsFirst2: number): Promise<Hackathon> {
     let variables: { [key: string]: any } = {
         "status": status,
         "after": after,
@@ -25,7 +25,7 @@ export async function getCurrentHackathon(apiUrl: string, status: string, after:
     return await doRequest<Hackathon>(apiUrl, null, Query.CURRENT_HACKATHON, variables)
 }
 
-export async function getEvents(apiUrl: string, after: string, first: string): Promise<EventsConnection> {
+export async function getEvents(apiUrl: string, after: number, first: number): Promise<EventsConnection> {
     let variables: { [key: string]: any } = {
         "after": after,
         "first": first,
@@ -33,7 +33,7 @@ export async function getEvents(apiUrl: string, after: string, first: string): P
     return await doRequest<EventsConnection>(apiUrl, null, Query.EVENTS, variables)
 }
 
-export async function getApplication(apiUrl: string, hackathonId: string, userId: string): Promise<HackathonApplication> {
+export async function getApplication(apiUrl: string, hackathonId: number, userId: number): Promise<HackathonApplication> {
     let variables: { [key: string]: any } = {
         "hackathonId": hackathonId,
         "userId": userId,
@@ -48,7 +48,7 @@ export async function getAuthRedirectLink(apiUrl: string, provider: Provider): P
     return await doRequest<string>(apiUrl, null, Query.GET_AUTH_REDIRECT_LINK, variables)
 }
 
-export async function getHackathon(apiUrl: string, getHackathonId: string, after: string, first: string, status: string, eventsAfter2: string, eventsFirst2: string, sponsorsAfter2: string, sponsorsFirst2: string): Promise<Hackathon> {
+export async function getHackathon(apiUrl: string, getHackathonId: number, after: number, first: number, status: ApplicationStatus, eventsAfter2: number, eventsFirst2: number, sponsorsAfter2: number, sponsorsFirst2: number): Promise<Hackathon> {
     let variables: { [key: string]: any } = {
         "getHackathonId": getHackathonId,
         "after": after,
@@ -60,6 +60,27 @@ export async function getHackathon(apiUrl: string, getHackathonId: string, after
         "sponsorsFirst2": sponsorsFirst2,
     }
     return await doRequest<Hackathon>(apiUrl, null, Query.GET_HACKATHON, variables)
+}
+
+export async function getUser(apiUrl: string, getUserId: number): Promise<User> {
+    let variables: { [key: string]: any } = {
+        "getUserId": getUserId,
+    }
+    return await doRequest<User>(apiUrl, null, Query.GET_USER, variables)
+}
+
+export async function getHackathons(apiUrl: string, filter: HackathonFilter, after: number, first: number, status: ApplicationStatus, eventsAfter2: number, eventsFirst2: number, sponsorsAfter2: number, sponsorsFirst2: number): Promise<Hackathon[]> {
+    let variables: { [key: string]: any } = {
+        "filter": filter,
+        "after": after,
+        "first": first,
+        "status": status,
+        "eventsAfter2": eventsAfter2,
+        "eventsFirst2": eventsFirst2,
+        "sponsorsAfter2": sponsorsAfter2,
+        "sponsorsFirst2": sponsorsFirst2,
+    }
+    return await doRequest<Hackathon[]>(apiUrl, null, Query.HACKATHONS, variables)
 }
 
 async function doRequest<T>(apiUrl: string, jwt: JWT | null, query: Query, variables: { [key: string]: any } | null): Promise<T> {
